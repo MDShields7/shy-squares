@@ -1,5 +1,8 @@
 import Layout from '../components/Layout';
-import Navbar from '../components/Navbar';
+
+function getScores () {
+    axios.get()
+}
 
 export default function HighScores () {
     return (
