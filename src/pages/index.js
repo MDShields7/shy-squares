@@ -7,7 +7,7 @@ export default function Home (){
         <Layout>
             <div>Home</div>
             <Link href='level/1'>
-                <a className>Play!</a>
+                <a>Play!</a>
             </Link>
         </Layout>
     )

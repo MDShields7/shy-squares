@@ -1,7 +1,7 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-function layout ({ children }) {
+function Layout ({ children }) {
     return (
         <>
             <Navbar/>
@@ -11,4 +11,4 @@ function layout ({ children }) {
     )
 }
 
-export default layout;
+export default Layout;
