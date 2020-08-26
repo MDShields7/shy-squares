@@ -1,4 +1,4 @@
-import LayoutLevel from '../../components/LayoutLevel';
+import Level from '../../components/layout/Level';
 
 const level = 1;
 
@@ -10,10 +10,11 @@ const arr = [
 
 export default function One (){
     return (
-        <LayoutLevel>
+        <Level>
             {[1,
             'hello',
-            arr]}
-        </LayoutLevel>
+            arr
+            ]}
+        </Level>
     )
 }

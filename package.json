@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "@zeit/next-sass": "^1.0.1",
     "axios": "^0.20.0",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
@@ -14,7 +15,8 @@
     "next": "^9.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "sass": "^1.26.10"
   },
   "scripts": {
     "dev": "next dev",

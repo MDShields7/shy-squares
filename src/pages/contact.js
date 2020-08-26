@@ -1,9 +1,9 @@
-import Layout from '../components/Layout';
+import Site from '../components/layout/Site';
 
 export default function Contact () {
     return (
-        <Layout>
+        <Site>
             <div>Contact</div>
-        </Layout>
+        </Site>
     )
 }

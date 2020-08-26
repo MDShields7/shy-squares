@@ -1,0 +1,25 @@
+@import './reset';
+@import './_variables';
+@import './standard';
+
+
+body {
+    background: $bg-color;
+}
+h1, h2, h3, h4, h5 {
+    font-family: $font-head;
+    color: $text-color;
+}
+div, p, a {
+    font-family: $font-para;
+    color: $text-color;
+}
+a {
+    font-family: $font-para;
+    color: $text-link;  
+}
+
+.title {
+    font-family: $font-title;
+    color: $text-link;
+}
