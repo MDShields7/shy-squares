@@ -14,6 +14,7 @@ function Level ({ children }){
     // Game box
     const [arrayOrig, setArrayOrig] = useState(children[1] || []);
     const [arrayNew, setArrayNew] = useState(children[1] || []);
+    const [arrayStatus, setArrayStatus] = useState([]);
     // Bottom bar 
     const [tutorial, setTutorial] = useState(true);
     const [gameStart, setGameStart] = useState(false);
@@ -23,9 +24,62 @@ function Level ({ children }){
     const hrefAgain='/level/'+level;
     const hrefNext='/level/'+(level+1)
     let gamebox;
+    let newArr = [];
+    let gameArr = [];
+    for ( let i = 0; i < arrayOrig.length; i++ ){
+        for ( let j = 0; j < arrayOrig.length; j++ ){
+            newArr.push(arrayOrig[i][j]);
+        }
+    }
+    console.log('newArr', newArr)
+    const totalSquares = newArr.length;
+    const totalSquaresAcross = Math.sqrt(totalSquares);
+    const squareWidth = 600 / totalSquaresAcross
     if ( tutorial ) {
-        // gamebox =  <img src='../../public/shokiri.jpg'/>
         gamebox = <img src="/shokiri.jpg" />
+    } else {
+        gamebox = newArr.map( elem => {
+            let hover = [];
+            let click = [];
+            switch ( elem ) {
+                case 'shy':
+                    hover = ['end', 'flip'];
+                    click = ['end', 'na'];
+
+                    break;
+                case 'bold':
+                    hover = ['na', 'na'];
+                    click = ['end', 'demo'];
+                case 'calm':
+                    hover = ['done'];
+                    click = ['done'];
+                    break;
+                default:
+                    hover = ['done'];
+                    click = ['done'];
+            }
+            let color;
+            let radius;
+            if ( hover[0] === 'done' || click[0] === 'done') {
+                color = 'green';
+            } else if ( click[0] === 'demo' ){
+                if ( click.length === 2){
+                    radius = squareWidth/2+'px';
+                } else {
+                    radius = squareWidth/4+'px';
+                }
+                color = 'green';
+            }
+            if ( hover[0] === 'flip') {
+                if ( hover.length === 2){
+                    color = 'orange';
+                } else {
+                    color = 'red';
+                }
+                radius = 0+'px';
+            }
+        
+        })
     }
     let button;
     if ( tutorial ){
@@ -51,7 +105,7 @@ function Level ({ children }){
             <GameBarTop>
                 {[level, timer, par]}
             </GameBarTop>
-            { children[1] }
+            {/* { children[1] } */}
             <div className={levelcss.gameContainer}>
                 {gamebox}
             </div>
