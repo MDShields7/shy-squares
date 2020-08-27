@@ -1,0 +1,23 @@
+@import './standard.css';
+
+@media screen and (max-width: 1024px) {
+    .container {
+        max-width: 94%;
+        margin: auto;
+    }
+}
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+    .container {
+        max-width: 90%;
+        margin: auto;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .container {
+        max-width: 1000px;
+        margin: auto;
+    }
+}
+#__next {
+    height: 100vh;
+}

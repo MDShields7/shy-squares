@@ -1,0 +1,39 @@
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.level {
+    background: #3E1429;
+    justify-content: center;
+    margin: auto;
+    padding: 20px 0 0 0;
+}
+.gamebox {
+    background: #3E1429;
+    height: 80vh;
+    width: 100%;
+}
+.timebar {
+    background: #3E1429;
+    justify-content: space-between;
+    padding: 20px 0 20px 0;
+}
+.timeItem {
+    width: 30%;
+}
+.timer {
+    background: var(--bg-color2);
+    text-align: center;
+}
+.par {
+    background: var(--bg-color2);
+}
+.buttonbar {
+    padding: 20px 0 20px 0; 
+}

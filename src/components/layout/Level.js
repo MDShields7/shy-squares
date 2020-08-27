@@ -1,4 +1,5 @@
-import Site from './Site';
+import level from '../../styles/level.module.css';
+import Site from './Site'
 import Link from 'next/link';
 
 function getScores () {
@@ -11,12 +12,22 @@ export default function Level ({ children }){
     console.log('href',href)
     return (
         <Site>
-            <h1>Level {children[0]}</h1>
+            <div className={`${level.row} ${level.level}`}>
+                <h1>Level {children[0]}</h1>
+            </div>
+            <div className={`${level.row} ${level.timebar}`}>
+                <h2 className={`${level.timeItem} ${level.par}`}>Par: {}</h2>
+                <h2 className={`${level.timeItem} ${level.timer}`}>00:00</h2>
+                <h2 className={`${level.timeItem}`}></h2>
+            </div>
             { children[1] }
+            <div className={level.gamebox}>box</div>
             <br/>
-            <Link href={href}>
-                <a >Next level</a>
-            </Link>
+            <div className={`${level.row} ${level.level}`}>
+                <Link href={href}>
+                    <a >Next level</a>
+                </Link>
+            </div>
         </Site>
     )
 }

@@ -1,0 +1,30 @@
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.navbarOuter {
+    width:100%;
+    justify-content: space-between;
+    padding: 20px 0 20px 0;
+}
+.navbarInner {
+    justify-content: space-between;
+    width: auto;
+}
+.navlink {
+    color: var(--text-color);
+    margin: 0 10px 0 10px;
+    font-size: 1.5em;
+}
+.navlink:first-child {
+    margin: 0 10px 0 0;
+}
+.navlink:last-child {
+    margin: 0 0 0 10px;
+}
