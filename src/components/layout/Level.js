@@ -1,33 +1,65 @@
-import level from '../../styles/level.module.css';
+import React, { useState } from 'react';
+import withContext from '../contextAPI/ContextWrapper';
 import Site from './Site'
-import Link from 'next/link';
+import Gamebox from './GameBox';
+import GameBarTop from './GameBarTop';
+import levelcss from '../../styles/level.module.css';
+// import GameBarBot from './GameBarBot';
 
-function getScores () {
-    // axios.get(`/api/v1/level${num}`)
-}
+function Level ({ children }){
+    // Top bar
+    const [level, setLevel] = useState(children[0]);
+    const [timer, setTimer] = useState(0);
+    const [par, setPar] = useState(1);
+    // Game box
+    const [arrayOrig, setArrayOrig] = useState(children[1] || []);
+    const [arrayNew, setArrayNew] = useState(children[1] || []);
+    // Bottom bar 
+    const [tutorial, setTutorial] = useState(true);
+    const [gameStart, setGameStart] = useState(false);
+    const [gameFault, setGameFault] = useState(false);
+    const [gameWin, setGameWin] = useState(false);
+    const [gameLose, setGameLose] = useState(false);
+    const hrefAgain='/level/'+level;
+    const hrefNext='/level/'+(level+1)
+    let gamebox;
+    if ( tutorial ) {
+        // gamebox =  <img src='../../public/shokiri.jpg'/>
+        gamebox = <img src="/shokiri.jpg" />
+    }
+    let button;
+    if ( tutorial ){
+        // Advance from tutorial to game
+        button = <button onClick={() => setTutorial(false)}>Next</button>
+    } else if ( gameStart === false ) {
+        // Start Game
+        button = <button onClick={() => setGameStart(true)}>Start</button>
+    } else if ( gameWin === true ) {
+        // Game won
+        button = <Link href={hrefNext}>
+            <a >Next level</a>
+        </Link>
+    } else if ( gameFault === true ) {
+        // Start game over
+        button = <Link href={hrefAgain}>
+            <a >Try Again</a>
+        </Link>
+    }
 
-export default function Level ({ children }){
-    // console.log('children',children)
-    const href='/level/'+(children[0]+1)
-    console.log('href',href)
     return (
         <Site>
-            <div className={`${level.row} ${level.level}`}>
-                <h1>Level {children[0]}</h1>
-            </div>
-            <div className={`${level.row} ${level.timebar}`}>
-                <h2 className={`${level.timeItem} ${level.par}`}>Par: {}</h2>
-                <h2 className={`${level.timeItem} ${level.timer}`}>00:00</h2>
-                <h2 className={`${level.timeItem}`}></h2>
-            </div>
+            <GameBarTop>
+                {[level, timer, par]}
+            </GameBarTop>
             { children[1] }
-            <div className={level.gamebox}>box</div>
-            <br/>
-            <div className={`${level.row} ${level.level}`}>
-                <Link href={href}>
-                    <a >Next level</a>
-                </Link>
+            <div className={levelcss.gameContainer}>
+                {gamebox}
+            </div>
+            <div className={`${levelcss.row} ${levelcss.level}`}>
+                { button }
             </div>
         </Site>
     )
 }
+
+export default withContext(Level);

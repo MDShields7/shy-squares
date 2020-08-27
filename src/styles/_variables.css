@@ -5,9 +5,11 @@
     --color-light2: #F24040;
     --color-light3: #fd5021;
     --color-light4: #F67979;
+    --color-btn1: #00E070;
+    --color-btn2: #C2FFE0;
     
     --bg-color1: var(--color-dark1);
-    --bg-color2: var(--color-dark1);
+    --bg-color2: var(--color-dark2);
     --text-color: var(--color-light1);
     --text-link: var(--color-light2);
     --text-hover: var(--color-light3);

@@ -11,10 +11,7 @@ const arr = [
 export default function One (){
     return (
         <Level>
-            {[1,
-            'hello',
-            arr
-            ]}
+            {[ 1, arr, 'link' ]}
         </Level>
     )
 }

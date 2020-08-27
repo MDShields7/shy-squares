@@ -6,11 +6,10 @@ export default function GameBox ({children}) {
     return (
         <>
             <div>
-                Timer
-                Par
+                1
+                2
+                3
             </div>
-            <div>Gameplay Area</div>
-            <div>button</div>
         </>
     )
 }
