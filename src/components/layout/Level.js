@@ -31,7 +31,8 @@ function Level ({ children }){
     let clickMap = new Map();
     let hover = [];
     let click = [];
-    var squaresArr = [];
+    let squaresArr = [];
+    let count = 0;
     if ( tutorial ) {
         gamebox = <img src="/shokiri.jpg" />;
     } else {
@@ -41,9 +42,6 @@ function Level ({ children }){
             // console.log('Array.isArray(Key):'+ Array.isArray(key))
             let val1 = key[0];
             let val2 = key[1];
-            // if ( val2 === 0 ){
-            //     squaresArr[ val1 ] = [];
-            // }
             switch ( value ) {
                 case 'shy':
                     hover = ['end', 'flip'];
@@ -68,11 +66,11 @@ function Level ({ children }){
                 color = 'green';
             } else if ( click[1] === 'demo' ){
                 if ( click.length === 2){
-                    radius = (squareWidth/2)+'px';
+                    radius = (squareWidth/2)+'px'; // 50% radius
                 } else {
-                    radius = (squareWidth/4)+'px';
+                    radius = (squareWidth/4)+'px'; // 25% radius
                 }
-                color = '#65B540';
+                color = '#65B540'; // green
             }
             if ( hover[1] === 'flip') {
                 if ( hover.length === 2){
@@ -82,20 +80,33 @@ function Level ({ children }){
                 }
                 radius = 0+'px';
             }
-            console.log('color', color)
-            console.log('radius', radius)
             let style = {
                 width: (squareWidth - borderWidth)+'px',
                 height: (squareWidth - borderWidth)+'px',
                 background: color,
                 borderRadius: radius,
-                border: `${borderWidth/2}px solid #3E1429`
+                border: `${borderWidth/2}px solid #3E1429`,
             }
-            squaresArr.push(<div style={style} key={key} >Key: {key}, Type: {value}</div>)
+            
+            squaresArr.push(<div style={style} key={key} data={count} onMouseEnter={changeColor}>Key: {key}, Type: {value}</div>)
         })
         gamebox = squaresArr;
     }
     console.log('gamebox', gamebox)
+
+    function changeColor ( e ) {
+        console.log('e.target', e.target)
+        // let index = e.data
+        let color = e.target.style.background;
+        if ( color === '#EF8A17') { //red
+            e.target.style.background = '#DB162F';
+        } else {
+            e.target.style.background = '#65B540';   
+        }
+        // let elem = gamebox[index];
+        // let color = elem.background
+        console.log('color', color)
+    }
     let button;
     if ( tutorial ){
         // Advance from tutorial to game
@@ -114,7 +125,6 @@ function Level ({ children }){
             <a >Try Again</a>
         </Link>
     }
-
     return (
         <Site>
             <GameBarTop>
