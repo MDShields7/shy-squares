@@ -4,7 +4,7 @@ export default function GameBox ({children}) {
     const level = children[0];
     const timer = children[1];
     const par = children[2];
-    console.log('gamebartop',children)
+    // console.log('gamebartop',children)
     return (
         <div>
             <div className={`${gamebartop.row} ${gamebartop.gamebar}`}>

@@ -4,7 +4,6 @@ import Site from './Site'
 import Gamebox from './GameBox';
 import GameBarTop from './GameBarTop';
 import levelcss from '../../styles/level.module.css';
-// import GameBarBot from './GameBarBot';
 
 function Level ({ children }){
     // Top bar
@@ -12,9 +11,9 @@ function Level ({ children }){
     const [timer, setTimer] = useState(0);
     const [par, setPar] = useState(1);
     // Game box
-    const [arrayOrig, setArrayOrig] = useState(children[1] || []);
-    const [arrayNew, setArrayNew] = useState(children[1] || []);
-    const [arrayStatus, setArrayStatus] = useState([]);
+    const [mapOrig, setMapOrig] = useState(children[1] || []);
+    const [mapNew, setMapNew] = useState(children[1] || []);
+    const [mapStatus, setMapStatus] = useState([]);
     // Bottom bar 
     const [tutorial, setTutorial] = useState(true);
     const [gameStart, setGameStart] = useState(false);
@@ -24,32 +23,37 @@ function Level ({ children }){
     const hrefAgain='/level/'+level;
     const hrefNext='/level/'+(level+1)
     let gamebox;
-    let newArr = [];
-    let gameArr = [];
-    for ( let i = 0; i < arrayOrig.length; i++ ){
-        for ( let j = 0; j < arrayOrig.length; j++ ){
-            newArr.push(arrayOrig[i][j]);
-        }
-    }
-    console.log('newArr', newArr)
-    const totalSquares = newArr.length;
+    const totalSquares = mapOrig.size;
     const totalSquaresAcross = Math.sqrt(totalSquares);
     const squareWidth = 600 / totalSquaresAcross
+    const borderWidth = 6;
+    let hoverMap = new Map();
+    let clickMap = new Map();
+    let hover = [];
+    let click = [];
+    var squaresArr = [];
     if ( tutorial ) {
-        gamebox = <img src="/shokiri.jpg" />
+        gamebox = <img src="/shokiri.jpg" />;
     } else {
-        gamebox = newArr.map( elem => {
-            let hover = [];
-            let click = [];
-            switch ( elem ) {
+        mapOrig.forEach( function (value, key) {
+            // console.log('gamebox - Key:'+key+', Value:'+value)
+            // console.log('Key[0]:'+key[0]+', Key[1]:'+key[1])
+            // console.log('Array.isArray(Key):'+ Array.isArray(key))
+            let val1 = key[0];
+            let val2 = key[1];
+            // if ( val2 === 0 ){
+            //     squaresArr[ val1 ] = [];
+            // }
+            switch ( value ) {
                 case 'shy':
                     hover = ['end', 'flip'];
                     click = ['end', 'na'];
-
+                    hoverMap.set(key, 1);
                     break;
                 case 'bold':
                     hover = ['na', 'na'];
                     click = ['end', 'demo'];
+                    clickMap.set(key, 1);
                 case 'calm':
                     hover = ['done'];
                     click = ['done'];
@@ -62,25 +66,36 @@ function Level ({ children }){
             let radius;
             if ( hover[0] === 'done' || click[0] === 'done') {
                 color = 'green';
-            } else if ( click[0] === 'demo' ){
+            } else if ( click[1] === 'demo' ){
                 if ( click.length === 2){
-                    radius = squareWidth/2+'px';
+                    radius = (squareWidth/2)+'px';
                 } else {
-                    radius = squareWidth/4+'px';
+                    radius = (squareWidth/4)+'px';
                 }
-                color = 'green';
+                color = '#65B540';
             }
-            if ( hover[0] === 'flip') {
+            if ( hover[1] === 'flip') {
                 if ( hover.length === 2){
-                    color = 'orange';
+                    color = '#EF8A17'; // red
                 } else {
-                    color = 'red';
+                    color = '#DB162F'; // orange
                 }
                 radius = 0+'px';
             }
-        
+            console.log('color', color)
+            console.log('radius', radius)
+            let style = {
+                width: (squareWidth - borderWidth)+'px',
+                height: (squareWidth - borderWidth)+'px',
+                background: color,
+                borderRadius: radius,
+                border: `${borderWidth/2}px solid #3E1429`
+            }
+            squaresArr.push(<div style={style} key={key} >Key: {key}, Type: {value}</div>)
         })
+        gamebox = squaresArr;
     }
+    console.log('gamebox', gamebox)
     let button;
     if ( tutorial ){
         // Advance from tutorial to game
