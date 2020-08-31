@@ -37,7 +37,7 @@ function Level ({ children }){
         gamebox = <img src="/shokiri.jpg" />;
     } else {
         mapOrig.forEach( function (value, key) {
-            // console.log('gamebox - Key:'+key+', Value:'+value)
+            console.log('gamebox - Key:'+key+', Value:'+value)
             // console.log('Key[0]:'+key[0]+', Key[1]:'+key[1])
             // console.log('Array.isArray(Key):'+ Array.isArray(key))
             let val1 = key[0];
@@ -52,6 +52,7 @@ function Level ({ children }){
                     hover = ['na', 'na'];
                     click = ['end', 'demo'];
                     clickMap.set(key, 1);
+                    break;
                 case 'calm':
                     hover = ['done'];
                     click = ['done'];
@@ -60,26 +61,24 @@ function Level ({ children }){
                     hover = ['done'];
                     click = ['done'];
             }
-            let color;
-            let radius;
-            if ( hover[0] === 'done' || click[0] === 'done') {
-                color = 'green';
-            } else if ( click[1] === 'demo' ){
-                if ( click.length === 2){
-                    radius = (squareWidth/2)+'px'; // 50% radius
-                } else {
-                    radius = (squareWidth/4)+'px'; // 25% radius
-                }
-                color = '#65B540'; // green
+            // console.log('squareWidth',squareWidth)
+            // console.log('(squareWidth/2)+"px"',(squareWidth/2)+'px')
+            // if ( hover.length > 1 && hover[0] === 'done' || click[0] === 'done') {
+            let color = '#65B540'; // green
+            let radius = 5+'px';
+            if ( click.length > 1 && click[2] === 'demo' ){
+                radius = (squareWidth/2)+'px'; // 50% radius
+            } else if ( click.length > 1 && click[1] === 'demo' ){
+                radius = (squareWidth/4)+'px'; // 25% radius
             }
-            if ( hover[1] === 'flip') {
-                if ( hover.length === 2){
-                    color = '#EF8A17'; // red
-                } else {
-                    color = '#DB162F'; // orange
-                }
-                radius = 0+'px';
+            if ( hover.length > 1 && hover[2] === 'flip' ) {
+                color = '#DB162F'; // red
+            } else if ( hover.length > 1 && hover[1] === 'flip' ) {
+                color = '#EF8A17'; // orange
             }
+            console.log('Item'+count+', hover', hover)
+            console.log('Item'+count+', click', click)
+            // console.log(radius)
             let style = {
                 width: (squareWidth - borderWidth)+'px',
                 height: (squareWidth - borderWidth)+'px',
@@ -87,26 +86,37 @@ function Level ({ children }){
                 borderRadius: radius,
                 border: `${borderWidth/2}px solid #3E1429`,
             }
-            
-            squaresArr.push(<div style={style} key={key} data={count} onMouseEnter={changeColor}>Key: {key}, Type: {value}</div>)
+            squaresArr.push(<div style={style} key={key} data={count} onMouseEnter={onHover} onClick={onClick}>Key: {key}, Type: {value}</div>)
+            count += 1;
         })
         gamebox = squaresArr;
     }
     console.log('gamebox', gamebox)
 
-    function changeColor ( e ) {
+    function onHover ( e ) {
         console.log('e.target', e.target)
         // let index = e.data
-        let color = e.target.style.background;
-        if ( color === '#EF8A17') { //red
+        let sqColor = e.target.style.background;
+        if ( sqColor === '#EF8A17') { //red
             e.target.style.background = '#DB162F';
         } else {
             e.target.style.background = '#65B540';   
         }
-        // let elem = gamebox[index];
-        // let color = elem.background
-        console.log('color', color)
+        console.log('sqColor', sqColor)
     }
+
+    function onClick ( e ) {
+        console.log('e.target', e.target)
+        // let index = e.data
+        let sqRadius = e.target.style.borderRadius;
+        if ( sqRadius === (squareWidth/2)+'px') { //red
+            e.target.style.borderRadius = (squareWidth/4)+'px';
+        } else {
+            e.target.style.borderRadius = 5+'px';;   
+        }
+        console.log('sqRadius', sqRadius)
+    }
+
     let button;
     if ( tutorial ){
         // Advance from tutorial to game
