@@ -33,6 +33,12 @@ function Level ({ children }){
     let click = [];
     let squaresArr = [];
     let count = 0;
+    let smRadius = 5+'px';
+    let mdRadius = (squareWidth/4)+'px';
+    let lgRadius = (squareWidth/2)+'px';
+    let green = '#65B540';
+    let orange = '#EF8A17';
+    let red = '#DB162F';
     if ( tutorial ) {
         gamebox = <img src="/shokiri.jpg" />;
     } else {
@@ -61,20 +67,17 @@ function Level ({ children }){
                     hover = ['done'];
                     click = ['done'];
             }
-            // console.log('squareWidth',squareWidth)
-            // console.log('(squareWidth/2)+"px"',(squareWidth/2)+'px')
-            // if ( hover.length > 1 && hover[0] === 'done' || click[0] === 'done') {
-            let color = '#65B540'; // green
-            let radius = 5+'px';
+            let color = green;
+            let radius = lgRadius;
             if ( click.length > 1 && click[2] === 'demo' ){
-                radius = (squareWidth/2)+'px'; // 50% radius
+                radius = smRadius;
             } else if ( click.length > 1 && click[1] === 'demo' ){
-                radius = (squareWidth/4)+'px'; // 25% radius
+                radius = mdRadius; 
             }
             if ( hover.length > 1 && hover[2] === 'flip' ) {
-                color = '#DB162F'; // red
+                color = red;
             } else if ( hover.length > 1 && hover[1] === 'flip' ) {
-                color = '#EF8A17'; // orange
+                color = orange;
             }
             console.log('Item'+count+', hover', hover)
             console.log('Item'+count+', click', click)
@@ -86,7 +89,7 @@ function Level ({ children }){
                 borderRadius: radius,
                 border: `${borderWidth/2}px solid #3E1429`,
             }
-            squaresArr.push(<div style={style} key={key} data={count} onMouseEnter={onHover} onClick={onClick}>Key: {key}, Type: {value}</div>)
+            squaresArr.push(<div style={style} key={key} data={count} onMouseEnter={onHover} onClick={onClick}></div>)
             count += 1;
         })
         gamebox = squaresArr;
@@ -97,10 +100,10 @@ function Level ({ children }){
         console.log('e.target', e.target)
         // let index = e.data
         let sqColor = e.target.style.background;
-        if ( sqColor === '#EF8A17') { //red
-            e.target.style.background = '#DB162F';
+        if ( sqColor === red) { //red
+            e.target.style.background = orange;
         } else {
-            e.target.style.background = '#65B540';   
+            e.target.style.background = green;   
         }
         console.log('sqColor', sqColor)
     }
@@ -109,10 +112,10 @@ function Level ({ children }){
         console.log('e.target', e.target)
         // let index = e.data
         let sqRadius = e.target.style.borderRadius;
-        if ( sqRadius === (squareWidth/2)+'px') { //red
-            e.target.style.borderRadius = (squareWidth/4)+'px';
+        if ( sqRadius === smRadius ) { //red
+            e.target.style.borderRadius = mdRadius;
         } else {
-            e.target.style.borderRadius = 5+'px';;   
+            e.target.style.borderRadius = lgRadius;;   
         }
         console.log('sqRadius', sqRadius)
     }
