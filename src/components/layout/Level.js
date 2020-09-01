@@ -79,9 +79,8 @@ function Level ({ children }){
             } else if ( hover.length > 1 && hover[1] === 'flip' ) {
                 color = orange;
             }
-            console.log('Item'+count+', hover', hover)
-            console.log('Item'+count+', click', click)
-            // console.log(radius)
+            // console.log('Item'+count+', hover', hover)
+            // console.log('Item'+count+', click', click)
             let style = {
                 width: (squareWidth - borderWidth)+'px',
                 height: (squareWidth - borderWidth)+'px',
@@ -89,36 +88,62 @@ function Level ({ children }){
                 borderRadius: radius,
                 border: `${borderWidth/2}px solid #3E1429`,
             }
-            squaresArr.push(<div style={style} key={key} data={count} onMouseEnter={onHover} onClick={onClick}></div>)
+            squaresArr.push(<div style={style} data={key} key={count} onMouseEnter={(e) => onHover(e, key)} onClick={(e) => onClick(e, key)}></div>)
             count += 1;
         })
         gamebox = squaresArr;
     }
     console.log('gamebox', gamebox)
-
-    function onHover ( e ) {
-        console.log('e.target', e.target)
-        // let index = e.data
+    
+    function onHover ( e, arr ) {
+        // console.log('e.target', e.target)
         let sqColor = e.target.style.background;
         if ( sqColor === red) { //red
             e.target.style.background = orange;
         } else {
             e.target.style.background = green;   
         }
-        console.log('sqColor', sqColor)
+        changeGameMap( 'hover', arr )
     }
-
-    function onClick ( e ) {
-        console.log('e.target', e.target)
-        // let index = e.data
+    function onClick ( e, arr ) {
+        // console.log('e.target', e.target)
         let sqRadius = e.target.style.borderRadius;
         if ( sqRadius === smRadius ) { //red
             e.target.style.borderRadius = mdRadius;
         } else {
             e.target.style.borderRadius = lgRadius;;   
         }
-        console.log('sqRadius', sqRadius)
+        changeGameMap( 'click', arr )
     }
+    function changeGameMap ( type, mapKey ) {
+        // modify scoring maps
+        if ( type === 'hover' ){
+            let hoverNum = hoverMap.get(mapKey)
+            if ( hoverNum > 1 ){
+                hoverMap.set( hoverNum - 1 );
+            } else {
+                hoverMap.delete(mapKey);
+            }
+        } else if ( type === 'click' ){
+            let clickNum = clickMap.get(mapKey)
+            if ( clickNum > 1 ){
+                clickMap.set( clickNum - 1 );
+            } else {
+                clickMap.delete(mapKey);
+            }
+        }
+        checkGameMap()
+    }
+    function checkGameMap () {
+        // check scoring arrays for game over
+        if ( hover.size === 0 && click.size === 0 ){
+            setGameWin(true);
+        }
+        // console.log('hoverMap.size', hoverMap.size)
+        // console.log('clickMap.size', clickMap.size)
+        console.log('you win')
+    }
+
 
     let button;
     if ( tutorial ){
