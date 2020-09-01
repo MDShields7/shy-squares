@@ -20,21 +20,21 @@ const key7 = [2,1]
 const key8 = [2,2]
 
 levelOneMap.set(key0, 'shy')
-levelOneMap.set(key1, 'shy')
+levelOneMap.set(key1, 'bold')
 levelOneMap.set(key2, 'bold')
-levelOneMap.set(key3, 'shy')
+levelOneMap.set(key3, 'bold')
 levelOneMap.set(key4, 'bold')
 levelOneMap.set(key5, 'shy')
-levelOneMap.set(key6, 'shy')
+levelOneMap.set(key6, 'bold')
 levelOneMap.set(key7, 'bold')
-levelOneMap.set(key8, 'shy')
+levelOneMap.set(key8, 'bold')
 
 // console.log('levelOneMap',levelOneMap)
 
 export default function One (){
     return (
         <Level>
-            {[ 1, levelOneMap, 1.8, 'link' ]}
+            {[ 2, levelOneMap, 2.5, 'link' ]}
         </Level>
     )
 }

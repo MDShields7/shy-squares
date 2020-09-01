@@ -6,7 +6,7 @@ export default function Navbar() {
         <nav className={`${navbar.navbarOuter} ${navbar.row}`}>
             <Link href="/">
                     <a className={navbar.navlink}>shysquares</a>
-                </Link>
+            </Link>
             <div className={navbar.navbarInner}>
                 <Link href="/high-scores">
                     <a className={navbar.navlink}>High Scores</a>

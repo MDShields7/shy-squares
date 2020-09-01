@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
+import Link from 'next/link'
 import withContext from '../contextAPI/ContextWrapper';
 import Site from './Site'
-import Gamebox from './GameBox';
+// import Gamebox from './GameBox';
 import GameBarTop from './GameBarTop';
 import levelcss from '../../styles/level.module.css';
 
 function Level ({ children }){
     // Top bar
-    const [level, setLevel] = useState(children[0]);
+    const level = children[0];
+    const par = children[2];
     const [timer, setTimer] = useState(0);
-    const [par, setPar] = useState(1);
     // Game box
     const [mapOrig, setMapOrig] = useState(children[1] || []);
     const [mapNew, setMapNew] = useState(children[1] || []);
@@ -20,6 +21,7 @@ function Level ({ children }){
     const [gameFault, setGameFault] = useState(false);
     const [gameWin, setGameWin] = useState(false);
     const [gameLose, setGameLose] = useState(false);
+    // const [ botBtn, setBotBtn] = useState(<button onClick={() => setTutorial(false)}>Next</button>)
     const hrefAgain='/level/'+level;
     const hrefNext='/level/'+(level+1)
     let gamebox;
@@ -40,10 +42,11 @@ function Level ({ children }){
     let orange = '#EF8A17';
     let red = '#DB162F';
     if ( tutorial ) {
-        gamebox = <img src="/shokiri.jpg" />;
-    } else {
+        gamebox = <img src="/shokiri-sumo.gif" />;
+        console.log('gamebox', gamebox)
+    } else if ( !tutorial && !gameWin ){
         mapOrig.forEach( function (value, key) {
-            console.log('gamebox - Key:'+key+', Value:'+value)
+            // console.log('gamebox - Key:'+key+', Value:'+value)
             // console.log('Key[0]:'+key[0]+', Key[1]:'+key[1])
             // console.log('Array.isArray(Key):'+ Array.isArray(key))
             let val1 = key[0];
@@ -92,8 +95,14 @@ function Level ({ children }){
             count += 1;
         })
         gamebox = squaresArr;
+        console.log('gamebox', gamebox)
+    } else if ( gameWin === true ){
+        gamebox = <div>You win!</div>
+        console.log('gamebox', gamebox)
+    } else if ( gameFault || gameLose ){
+        gamebox = <div>You lost</div>
+        console.log('gamebox', gamebox)
     }
-    console.log('gamebox', gamebox)
     
     function onHover ( e, arr ) {
         // console.log('e.target', e.target)
@@ -136,33 +145,30 @@ function Level ({ children }){
     }
     function checkGameMap () {
         // check scoring arrays for game over
-        if ( hover.size === 0 && click.size === 0 ){
+        if ( hoverMap.size === 0 && clickMap.size === 0 ){
             setGameWin(true);
+            console.log('you win')
         }
         // console.log('hoverMap.size', hoverMap.size)
         // console.log('clickMap.size', clickMap.size)
-        console.log('you win')
     }
 
-
-    let button;
-    if ( tutorial ){
-        // Advance from tutorial to game
-        button = <button onClick={() => setTutorial(false)}>Next</button>
-    } else if ( gameStart === false ) {
-        // Start Game
-        button = <button onClick={() => setGameStart(true)}>Start</button>
-    } else if ( gameWin === true ) {
-        // Game won
-        button = <Link href={hrefNext}>
-            <a >Next level</a>
-        </Link>
-    } else if ( gameFault === true ) {
-        // Start game over
-        button = <Link href={hrefAgain}>
-            <a >Try Again</a>
-        </Link>
-    }
+    // let button;
+    // if ( tutorial ){
+    //     // Advance from tutorial to game
+    //     button = <button onClick={() => setTutorial(false)}>Next</button>
+    // } else if ( !tutorial && gameStart === false ) {
+    //     // Start Game
+    //     button = <button onClick={() => setGameStart(true)}>Start</button>
+    // } else if ( gameStart && gameWin ) {
+    //     // Game won
+    //     console.log('loading button')
+    //     button = <Link href={hrefNext}> <a >Next level</a> </Link>
+    // } else if ( gameFault === true ) {
+    //     // Start game over
+    //     button = <Link href={hrefAgain}> <a >Try Again</a> </Link>
+    // }
+    console.log('tutorial:',tutorial, ', gameStart:',gameStart, ', gameWin', gameWin)
     return (
         <Site>
             <GameBarTop>
@@ -173,7 +179,16 @@ function Level ({ children }){
                 {gamebox}
             </div>
             <div className={`${levelcss.row} ${levelcss.level}`}>
-                { button }
+                {/* { button } */}
+                { tutorial ? 
+                    <button onClick={() => setTutorial(false)}>Next</button>:
+                !tutorial && gameStart === false ?
+                    <button onClick={() => setGameStart(true)}>Start</button> :
+                gameStart && gameWin ?
+                    <Link href={hrefNext}><a >Next level</a></Link> :
+                gameLose || gameFault ?
+                    <Link href={hrefAgain}><a >Try Again</a></Link> :
+                    <div>nothing to show now</div> }
             </div>
         </Site>
     )
