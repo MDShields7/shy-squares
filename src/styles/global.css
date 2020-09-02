@@ -23,7 +23,7 @@ a:hover {
 a:visited {
     color: var(--text-clicked); 
 }
-button {
+.button {
     border: none;
     border-radius: 5px;
     padding: 5px 20px;
@@ -31,9 +31,12 @@ button {
     color: var(--color-dark1);
     background: var(--color-btn1)
 }
-button:hover {
+.button:hover {
     background: var(--color-btn2);
     cursor: pointer;
+}
+.button a:visited {
+    color: #17132A
 }
 img {
     width: 100%;

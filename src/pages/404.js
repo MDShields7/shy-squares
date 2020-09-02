@@ -6,18 +6,16 @@ const style1 = {
     textAlign: 'center',
     margin: 'auto',
     padding: '60px 0 0 0'
-};
+  };
 
 export default function Home (){
     return (
         <Site>
             <div style={style1}>
-                <h1 >Home</h1><br/>
-                <button className='button'>
-                    <Link href='level/1'>
-                        <a>Play!</a>
-                    </Link>
-                </button>
+                <h1>404 - Page Not Found</h1><br/>
+                <Link href='/'>
+                    <a >Go back to home page</a>
+                </Link>
             </div>
         </Site>
     )
