@@ -19,11 +19,11 @@ const key6 = [2,0]
 const key7 = [2,1]
 const key8 = [2,2]
 
-levelOneMap.set(key0, 'shy')
+levelOneMap.set(key0, 'shy-2x')
 levelOneMap.set(key1, 'shy')
 levelOneMap.set(key2, 'bold')
-levelOneMap.set(key3, 'shy')
-levelOneMap.set(key4, 'bold')
+levelOneMap.set(key3, 'shy-2x')
+levelOneMap.set(key4, 'bold-2x')
 levelOneMap.set(key5, 'lava')
 levelOneMap.set(key6, 'shy')
 levelOneMap.set(key7, 'bold')
