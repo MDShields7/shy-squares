@@ -93,7 +93,7 @@ export default function makeSquareArr ( startType, widthOfSq, inputMap, gameChec
                 hover = ['done'];
                 click = ['done'];
         }
-        let borderWidth = 6;
+        let borderWidth = 10;
         const dark2 = 'rgb(62, 20, 41)';
         let color = background.green;
         // console.log('color', color);
@@ -124,7 +124,7 @@ export default function makeSquareArr ( startType, widthOfSq, inputMap, gameChec
             height: (widthOfSq - borderWidth)+'px',
             background: color,
             borderRadius: radius,
-            border: `${borderWidth/2}px solid ${border}`,
+            //border: `${borderWidth/2}px solid ${border}`,
         }
         let preStartStyle = {
             boxSizing: 'border-box',
@@ -132,7 +132,7 @@ export default function makeSquareArr ( startType, widthOfSq, inputMap, gameChec
             height: (widthOfSq - borderWidth)+'px',
             background: chroma(color).desaturate(2),
             borderRadius: radius,
-            border: `${borderWidth/2}px solid ${border}`,
+            //border: `${borderWidth/2}px solid ${border}`,
         }
         if ( startType === 'start' ){
             squaresArr.push(<div style={startStyle} data={key} key={count} onMouseEnter={(e) => onHover(e, key)} onClick={(e) => onClick(e, key)}></div>)

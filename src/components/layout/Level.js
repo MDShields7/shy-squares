@@ -17,6 +17,7 @@ function Level ({ children }){
     // Bottom bar 
     const [tutorial, setTutorial] = useState(true);
     const [gameStart, setGameStart] = useState(false);
+    const [gameStartFault, setGameStartFault] = useState(false);
     const [gameFault, setGameFault] = useState(false);
     const [gameWin, setGameWin] = useState(false);
     const [gameLose, setGameLose] = useState(false);
@@ -34,7 +35,12 @@ function Level ({ children }){
     } else if ( !tutorial && !gameStart ){
         const sqArrResults = makeSquareArr( 'pre-start', squareWidth, mapOrig, checkGameMap );
         [ gamebox ] = sqArrResults;
-        progressBtn = <button className='button' onClick={() => setGameStart(true)}>Start</button>
+        if ( gameStartFault ){
+            progressBtn = <button className='button' >Start</button>
+        } else {
+        progressBtn = <button className='button' onClick={() => setGameStart(true)}
+        >Start</button>
+        }
     } else if ( !tutorial && !gameWin ){
         const sqArrResults = makeSquareArr( 'start', squareWidth, mapOrig, checkGameMap );
         [ gamebox ] = sqArrResults;
@@ -66,7 +72,7 @@ function Level ({ children }){
             <GameBarTop>
                 {[level, timer, par]}
             </GameBarTop>
-            <div className={levelcss.gameContainer}>
+            <div className={levelcss.gameContainer} onMouseEnter={() => setGameStartFault(true)} onMouseLeave={() => setGameStartFault(false)} >
                 {gamebox}
             </div>
             <div className={`${levelcss.row} ${levelcss.level}`}>
