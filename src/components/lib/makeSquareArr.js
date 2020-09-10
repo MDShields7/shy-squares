@@ -6,11 +6,12 @@ let hoverMap = new Map();
 // A count, which tells how many times more this can be hovered over
 let clickMap = new Map();
 
-export default function makeSquareArr ( startType, widthOfSq, inputMap, gameChecker ) {
+export default function makeSquareArr ( startType, widthOfSq, inputMap, gameChecker, gameLoser ) {
     let squaresArr = [];
     let hover = [];
     let click = [];
     let count = 0;
+    let gameEnd = false;
     let borderWidth = widthOfSq/10;
     const dark2 = 'rgb(62, 20, 41)';
 
@@ -152,8 +153,10 @@ export default function makeSquareArr ( startType, widthOfSq, inputMap, gameChec
             border: `${borderWidth/2}px solid ${chroma(border).desaturate(2)}`,
         }
         if ( startType === 'start' ){
-            if ( hover[0] === 'end' || hover[0] === 'lava'){
+            if ( hover[0] === 'end'){
                 squaresArr.push(<div style={startStyle} data={key} key={count} onMouseEnter={(e) => onHover(e, key)} ></div>)
+            } else if ( click[0] === 'lava'){
+                squaresArr.push(<div style={startStyle} data={key} key={count} onMouseEnter={() => gameLoser()} ></div>)
             } else if ( click[0] === 'end'){
                 squaresArr.push(<div style={startStyle} data={key} key={count}  onClick={(e) => onClick(e, key)}></div>)
             } else {
