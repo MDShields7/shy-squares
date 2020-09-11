@@ -35,8 +35,9 @@ function Level ({ children }){
         startTimer()
     }
     const startTimer = () => {
-        setStartTime( (new Date().getTime()) );
+        setStartTime( Date.now() );
         setGameStart(true);
+        console.log('timer activated!!!!!!!!!!')
     }
     const stopTimer = () => {
        stopTime = new Date();
@@ -97,7 +98,7 @@ function Level ({ children }){
     return (
         <Site>
             <GameBarTop>
-                {[level, startTime, gameStart, par]}
+                {[level, startTime, gameStart, gameWin, par]}
             </GameBarTop>
             <div className={levelcss.gameContainer} onMouseEnter={ !tutorial && !gameStart ? () => setGameStartFault(true) : null} onMouseLeave={ !tutorial && !gameStart ? () => setGameStartFault(false) : null} >
                 {gamebox}
