@@ -30,7 +30,7 @@ export default function makeSquareArr ( startType, widthOfSq, inputMap, gameChec
         red: 'rgb(219, 22, 47)'
     }
     function onHover ( e, arr ) {
-        console.log('Hovering! e.target', e.target)
+        // console.log('Hovering! e.target', e.target)
         let sqColor = e.target.style.background;
         if ( sqColor === background.red ) { //red
             e.target.style.background = background.orange;
@@ -57,10 +57,10 @@ export default function makeSquareArr ( startType, widthOfSq, inputMap, gameChec
     }
     function changeGameMap ( type, mapKey ) {
         // modify scoring maps
-        console.log( 'changeGameMap, type:', type, ', mapKey:', mapKey)
+        // console.log( 'changeGameMap, type:', type, ', mapKey:', mapKey)
         if ( type === 'hover' ){
             let hoverNum = hoverMap.get(mapKey)
-            console.log('hoverNum:', hoverNum)
+            // console.log('hoverNum:', hoverNum)
             if ( hoverNum > 1 ){
                 hoverMap.set( mapKey, hoverNum - 1 );
             } else {
@@ -167,8 +167,9 @@ export default function makeSquareArr ( startType, widthOfSq, inputMap, gameChec
         }
         count += 1;
     })
-    console.log('hoverMap', hoverMap)
-    console.log('clickMap', clickMap)
+    console.log('makeSquareArr')
+    // console.log('hoverMap', hoverMap)
+    // console.log('clickMap', clickMap)
     // console.log('squaresArr',squaresArr)
     const gamebox = [squaresArr, hoverMap, clickMap];
     return gamebox; 
