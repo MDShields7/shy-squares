@@ -44,10 +44,10 @@ export default function makeSquareArr ( startType, widthOfSq, inputMap, gameChec
     function onClick ( e, arr ) {
         // console.log('e.target', e.target)
         let sqRadius = e.target.style.borderRadius;
-        console.log('sqRadius', sqRadius)
-        console.log('borderRadius.small',borderRadius.small)
-        console.log('borderRadius.medium',borderRadius.medium)
-        console.log('borderRadius.large',borderRadius.large)
+        // console.log('sqRadius', sqRadius)
+        // console.log('borderRadius.small',borderRadius.small)
+        // console.log('borderRadius.medium',borderRadius.medium)
+        // console.log('borderRadius.large',borderRadius.large)
         if ( sqRadius === borderRadius.small ) {
             e.target.style.borderRadius = borderRadius.medium;
         } else if ( sqRadius === borderRadius.medium ){
@@ -167,7 +167,7 @@ export default function makeSquareArr ( startType, widthOfSq, inputMap, gameChec
         }
         count += 1;
     })
-    console.log('makeSquareArr')
+    // console.log('makeSquareArr')
     // console.log('hoverMap', hoverMap)
     // console.log('clickMap', clickMap)
     // console.log('squaresArr',squaresArr)

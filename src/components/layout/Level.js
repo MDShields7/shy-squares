@@ -11,8 +11,8 @@ function Level ({ children }){
     // Top bar
     const level = children[0];
     const par = children[2];
-    const [startTime, setStartTime] = useState(0);
-    const [timer, setTimer] = useState(0);
+    const [startTime, setStartTime] = useState(false);
+    const [finalTime, setFinalTime] = useState(0);
     // Game box
     const [mapOrig, setMapOrig] = useState(children[1] || []);
     // Bottom bar 
@@ -79,26 +79,35 @@ function Level ({ children }){
         gamebox = <div>You win!</div>
         progressBtn = <button className='button' ><Link href={hrefNext}><a >Next level</a></Link></button>
     } 
-
+    function calcTime (endTime) {
+        let myTime = endTime - startTime
+        console.log('insidew calcTime, myTime', myTime)
+        setFinalTime(myTime);
+    }
+    
     function checkGameMap (mapHover, mapClick) {
         // check scoring arrays for game over
         if ( mapHover.size === 0 && mapClick.size === 0 ){
             setGameWin(true);
+            let end =  Date.now()
+            calcTime(end);
             // setTimer( stopTimer() )
             console.log('you win')
         }
         console.log('mapHover.size', mapHover.size)
         console.log('mapClick.size', mapClick.size)
     }
-
+    
     // console.log('gamebox',gamebox)
     // console.log('gameLose', gameLose)
-    console.log('startTime', startTime)
+    // console.log('startTime', startTime)
+    // console.log('finalTime', finalTime)
+    console.log('outside calcTime, finalTime', finalTime)
     // console.log('tutorial:',tutorial, ', gameStart:',gameStart, ', gameWin', gameWin)
     return (
         <Site>
             <GameBarTop>
-                {[level, startTime, gameStart, gameWin, par]}
+                {[level, startTime, finalTime, gameStart, gameWin, par]}
             </GameBarTop>
             <div className={levelcss.gameContainer} onMouseEnter={ !tutorial && !gameStart ? () => setGameStartFault(true) : null} onMouseLeave={ !tutorial && !gameStart ? () => setGameStartFault(false) : null} >
                 {gamebox}
