@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 const Timer = (props) => {
-    // const [isActive, setIsActive] = useState(false);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [milliseconds, setMilliseconds] = useState(0);
-    const {gameStart, finalTime} = props;
+    const {gameStart, gameLose, finalTime} = props;
 
 //   function toggle() {
 //     setIsActive(!isActive);
@@ -18,8 +17,8 @@ const Timer = (props) => {
 
   useEffect(() => {
     let interval = null;
-    if (gameStart && finalTime !== 0){
-        setSeconds(finalTime/1000)
+    if (gameLose) {
+        setSeconds(0);
     } else if (gameStart) {
       interval = setInterval(() => {
         setSeconds(seconds => seconds + 1);
@@ -30,13 +29,13 @@ const Timer = (props) => {
     return () => {
       clearInterval(interval);
     };
-  }, [gameStart, finalTime]);
-  console.log('timer, finalTime', finalTime)
+  }, [gameStart, gameLose, finalTime]);
+  console.log('TImer, finalTime', finalTime)
   return (
       <div className="time">{seconds}s</div>
   );
 };
 
 export default function Host(props) {
-  return <Timer gameStart={props.gameStart} finalTime={props.finalTime}/>;
+  return <Timer gameStart={props.gameStart} finalTime={props.finalTime} gameLose={props.gameLose}/>;
 }

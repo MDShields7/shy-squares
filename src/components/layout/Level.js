@@ -12,7 +12,7 @@ function Level ({ children }){
     const level = children[0];
     const par = children[2];
     const [startTime, setStartTime] = useState(false);
-    const [finalTime, setFinalTime] = useState(0);
+    const [finalTime, setFinalTime] = useState(undefined);
     // Game box
     const [mapOrig, setMapOrig] = useState(children[1] || []);
     // Bottom bar 
@@ -22,35 +22,27 @@ function Level ({ children }){
     const [gameWin, setGameWin] = useState(false); 
     const [gameLose, setGameLose] = useState(false);
     const hrefNext='/level/'+(level+1)
-
     const totalSquares = mapOrig.size;
     const totalSquaresAcross = Math.sqrt(totalSquares);
     const squareWidth = 600 / totalSquaresAcross;
-    let stopTime;
     
     let gamebox;
     let progressBtn;
     const gameStarter = () => {
         setGameStart(true);
-        startTimer()
-    }
-    const startTimer = () => {
         setStartTime( Date.now() );
-        setGameStart(true);
-        console.log('timer activated!!!!!!!!!!')
     }
-    const stopTimer = () => {
-       stopTime = new Date();
-    //    return Math.round(( stopTime.getTime() - startTime.getTime() ) / (24 * 60) );
-    }
+    // const stopTimer = () => {
+    //    stopTime = new Date();
+    // }
     const loseGame = () => {
-        console.log('you hit loseGame')
         setGameLose(true);
+        setFinalTime(undefined);
     }
-    const reset = () => {
+    const resetTutorial = () => {
+        setGameStart(false);
         setGameLose(false);
         setGameStartFault(false);
-        setGameStart(false);
         setTutorial(true);
     }
     if ( tutorial ) {
@@ -65,15 +57,13 @@ function Level ({ children }){
         progressBtn = <button className='button' onClick={() => gameStarter()} >Start</button>
         }
     } else if ( !tutorial && gameStart && !gameLose && !gameWin ){
-        // setTimer(Math.round((Date.now() - startTime.getTime()) / 24 * 60));
         const sqArrResults = makeSquareArr( 'start', squareWidth, mapOrig, checkGameMap, loseGame );
         [ gamebox ] = sqArrResults;
-        // console.log('hi', gamebox)
         const [ hoverMap , mapClick ] = sqArrResults;
         progressBtn = <div>nothing to show now</div>
     } else if ( !tutorial && gameStart && gameLose ){
         gamebox = <div>You Lost!</div>
-        progressBtn = <button className='button' ><a onClick={() => reset()}
+        progressBtn = <button className='button' ><a onClick={() => resetTutorial()}
         >Restart</a></button>
     } else if ( gameWin === true ){
         gamebox = <div>You win!</div>
@@ -81,7 +71,6 @@ function Level ({ children }){
     } 
     function calcTime (endTime) {
         let myTime = endTime - startTime
-        console.log('insidew calcTime, myTime', myTime)
         setFinalTime(myTime);
     }
     
@@ -98,16 +87,11 @@ function Level ({ children }){
         console.log('mapClick.size', mapClick.size)
     }
     
-    // console.log('gamebox',gamebox)
-    // console.log('gameLose', gameLose)
-    // console.log('startTime', startTime)
-    // console.log('finalTime', finalTime)
-    console.log('outside calcTime, finalTime', finalTime)
-    // console.log('tutorial:',tutorial, ', gameStart:',gameStart, ', gameWin', gameWin)
+    // console.log('outside calcTime, finalTime', finalTime)
     return (
         <Site>
             <GameBarTop>
-                {[level, startTime, finalTime, gameStart, gameWin, par]}
+                {[level, startTime, finalTime, gameStart, gameWin, par, gameLose]}
             </GameBarTop>
             <div className={levelcss.gameContainer} onMouseEnter={ !tutorial && !gameStart ? () => setGameStartFault(true) : null} onMouseLeave={ !tutorial && !gameStart ? () => setGameStartFault(false) : null} >
                 {gamebox}

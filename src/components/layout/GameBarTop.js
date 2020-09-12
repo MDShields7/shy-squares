@@ -8,6 +8,7 @@ export default function GameBarTop ({children}) {
     const gameStart = children[3];
     const gameWin = children[4];
     const par = children[5];
+    const gameLose = children[6];
 
     // if ( !gameStart) {
     //     // setTimer(startTime);
@@ -29,7 +30,7 @@ export default function GameBarTop ({children}) {
                 </h1>
                 <h2 className={`${gamebartop.timeItem} ${gamebartop.timer}`}>
                     {/* {timerAmount ?  timer Amount : '00:00:00'} */}
-                    <Timer gameStart={gameStart} finalTime={finalTime} />
+                    <Timer gameStart={gameStart} finalTime={finalTime} gameLose={gameLose}/>
                     {    console.log('gamebartop, gameStart:', gameStart)}
                 </h2>
                 <h2 className={`${gamebartop.timeItem} ${gamebartop.par}`}>
