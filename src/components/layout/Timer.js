@@ -30,7 +30,7 @@ const Timer = (props) => {
       clearInterval(interval);
     };
   }, [gameStart, gameLose, finalTime]);
-  console.log('TImer, finalTime', finalTime)
+//   console.log('TImer, finalTime', finalTime)
   return (
       <div className="time">{seconds}s</div>
   );

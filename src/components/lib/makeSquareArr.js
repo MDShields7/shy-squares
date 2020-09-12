@@ -1,12 +1,12 @@
 import chroma from 'chroma-js';
 
-let hoverMap = new Map();
 // Each item in hoverMap is composed of:
 // A key, which is the key of the item ( 0 for first square, count+1 for each square)
 // A count, which tells how many times more this can be hovered over
-let clickMap = new Map();
 
 export default function makeSquareArr ( startType, widthOfSq, inputMap, gameChecker, gameLoser ) {
+    let hoverMap = new Map();
+    let clickMap = new Map();
     let squaresArr = [];
     let hover = [];
     let click = [];
